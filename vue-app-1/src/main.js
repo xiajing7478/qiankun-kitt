@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router'
 import routes from './router'
+import store from './store'
 // import './public-path.js';
 Vue.use(VueRouter)
 Vue.config.productionTip = false
@@ -18,7 +19,10 @@ function render(props = {}) {
         routes
     })
 
+    store.commit('setMsg', props.msg)
+
     instance = new Vue({
+        store,
         router,
         render: h => h(App)
     }).$mount(container ? container.querySelector('#app') : '#app')
@@ -36,6 +40,10 @@ export async function bootstrap(props) {
 // 生命周期 - 挂载后
 export async function mount(props) {
     console.log("[vue] props from main framework", props);
+    props.onGlobalStateChange((state, prev) => {
+            console.log(state, prev)
+        })
+        // props.setGlobalState(state)
     render(props);
 }
 // 生命周期 - 解除挂载
