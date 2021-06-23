@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import App from './App.vue'
-
+import VueRouter from 'vue-router'
+import routes from './router'
+Vue.use(VueRouter)
 Vue.config.productionTip = false
 
 // 导入qiankun所需方法
 import { registerMicroApps, start, setDefaultMountApp, runAfterFirstMounted, initGlobalState } from 'qiankun'
-
 
 // 注册子应用
 /**
@@ -85,8 +86,7 @@ setGlobalState({
     ignore: 'master',
     user: {
         name: 'master'
-    },
-    props: { a: 1 }
+    }
 })
 
 // 设置主应用启动后默认进入的微应用。可选
@@ -109,7 +109,12 @@ runAfterFirstMounted((effect => {
  * excludeAssetFilter - (assetUrl: string) => boolean - 可选，指定部分特殊的动态加载的微应用资源（css/js) 不被 qiankun 劫持处理。
  */
 start()
-
+let router = null
+router = new VueRouter({
+    mode: 'history',
+    routes
+})
 new Vue({
+    router,
     render: h => h(App),
 }).$mount('#app')
