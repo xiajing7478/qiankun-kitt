@@ -2,13 +2,7 @@
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
     <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
-    这是主应用文字
-    <br>
-    <button @click="changeView('/vue-app-1')">子应用one</button>
-    &nbsp;
-    <button @click="changeView('/vue-app-3')">子应用two</button>
-    <hr>
-    <div id="micro-view"></div>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -17,11 +11,6 @@
 
 export default {
   name: 'App',
-  methods: {
-    changeView(url) {
-      history.pushState(null, null, url)
-    }
-  },
   // components: {
   //   HelloWorld
   // }
