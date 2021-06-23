@@ -26,16 +26,18 @@ import { registerMicroApps, start, setDefaultMountApp, runAfterFirstMounted, ini
  */
 registerMicroApps([{
         name: 'vue-app-1',
-        entry: '//localhost:8091',
+        // entry: '//localhost:8091',
+        entry: 'http://localhost:8091/vue-app-1',
         container: '#micro-view',
         activeRule: '/vue-app-1',
         props: { name: 'kitt' }
     },
     {
-        name: 'vue-app-2',
-        entry: '//localhost:8092',
+        name: 'vue-app-3',
+        entry: 'http://localhost:8093/vue-app-3',
         container: '#micro-view',
-        activeRule: '/vue-app-2'
+        activeRule: '/vue-app-3',
+        props: { name: 'kitt3' }
     }
 ], {
     beforeLoad: [
@@ -68,13 +70,24 @@ registerMicroApps([{
 
 // 定义全局状态，可以在主应用、子应用中使用 - 可选
 
-initGlobalState({
-    user: 'admin',
-    info: {
-        name: 'qianku'
-    }
+// 定义全局状态，可以在主应用、子应用中使用
+const { onGlobalStateChange, setGlobalState } = initGlobalState({
+    user: 'qiankun'
 })
 
+// 监听全局状态变化
+onGlobalStateChange((value, prev) => console.log(
+    '[onGlobalStateChange]:', value, prev
+))
+
+// 设置全局状态
+setGlobalState({
+    ignore: 'master',
+    user: {
+        name: 'master'
+    },
+    props: { a: 1 }
+})
 
 // 设置主应用启动后默认进入的微应用。可选
 setDefaultMountApp('/vue-app-1')

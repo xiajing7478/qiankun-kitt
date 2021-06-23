@@ -6,7 +6,7 @@
     <br>
     <button @click="changeView('/vue-app-1')">子应用one</button>
     &nbsp;
-    <button @click="changeView('/vue-app-2')">子应用two</button>
+    <button @click="changeView('/vue-app-3')">子应用two</button>
     <hr>
     <div id="micro-view"></div>
   </div>
