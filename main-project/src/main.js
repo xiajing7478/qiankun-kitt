@@ -31,7 +31,7 @@ import { registerMicroApps, start, setDefaultMountApp, runAfterFirstMounted, ini
 registerMicroApps([{
         name: 'vue-app-1',
         // entry: '//localhost:8091',
-        entry: 'http://localhost:8091/vue-app-1',
+        entry: 'http://localhost:5001/vue-app-1',
         container: '#micro-view',
         activeRule: '/vue-app-1',
         // 增加props参数
@@ -41,7 +41,7 @@ registerMicroApps([{
     },
     {
         name: 'vue-app-3',
-        entry: 'http://localhost:8093/vue-app-3',
+        entry: 'http://localhost:5002/vue-app-3',
         container: '#micro-view',
         activeRule: '/vue-app-3',
         props: { name: 'kitt3' }
