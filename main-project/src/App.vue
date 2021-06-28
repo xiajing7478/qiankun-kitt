@@ -6,15 +6,15 @@
       <ul>
         <li><router-link to='/vue-app-1'>子应用1</router-link></li>
         <li><router-link to='/vue-app-3'>子应用2</router-link></li>
-        <li>
-          <hr>
-            <button @click="changeState('1')">修改state = 1</button>
-            <button @click="changeState('2')">修改state = 2</button>
-          <hr>
-        </li>
       </ul>
     </div>
     <div class="main-right">
+      <h1 class="title">测试样式冲突</h1>
+      <div>
+        <el-button type="primary" @click="changeState('1')">修改state = 1</el-button>
+        <el-button type="primary" @click="changeState('2')">修改state = 2</el-button>
+      </div>
+      <hr>
       <div id="micro-view"></div>
     </div>
   </div>
@@ -37,6 +37,9 @@ export default {
 </script>
 
 <style>
+#main-app .title {
+  color: red;
+}
 .main-wrap {
   position: relative;
   height: 100%;

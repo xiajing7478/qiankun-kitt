@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <img alt="Vue logo" src="./assets/logo.png">
+    <h1 class="title">子样式</h1>
     <h1>{{'this is my name --- '+ user.name}}</h1>
   </div>
 </template>
@@ -21,9 +22,9 @@ export default {
         this.user.name = state.mt
       }
     })
-    this.$setGlobalState((state, prev) => {
-      console.log('setGlobalState', state, prev)
-    })
+    // this.$setGlobalState((state, prev) => {
+    //   console.log('setGlobalState', state, prev)
+    // })
   }
 }
 </script>
@@ -36,5 +37,8 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+#app .title {
+  color: yellow;
 }
 </style>
