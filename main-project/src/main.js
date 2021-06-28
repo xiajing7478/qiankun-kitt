@@ -74,33 +74,31 @@ registerMicroApps([{
 /**
  * 通讯
  */
-// // 定义全局状态，可以在主应用、子应用中使用 - 可选
+// 定义全局状态，可以在主应用、子应用中使用 - 可选
 // const { onGlobalStateChange, setGlobalState } = initGlobalState({
-//   user: 'qiankun'
-// })
-// 监听全局状态变化
+//     user: 'qiankun'
+// });
+// // 监听全局状态变化
 // onGlobalStateChange((value, prev) => console.log(
 //     '[onGlobalStateChange]:', value, prev
-// ))
-// 设置全局状态
+// ));
+// // 设置全局状态
 // setGlobalState({
-//     ignore: 'master',
 //     user: {
 //         name: 'master'
 //     }
-// })
-let state = {
-    msg: 'main qiankun'
-}
-const actions = initGlobalState(state)
-actions.onGlobalStateChange((state, prev) => {
-    // state: 变更后的状态; prev 变更前的状态
-    console.log('main state change', state, prev);
-})
-actions.setGlobalState(state)
-    // actions.offGlobalStateChange();
-    // Vue.prototype.$action = actions
+// });
 
+const actions = initGlobalState({
+    mt: 'init'
+})
+actions.onGlobalStateChange((state, prev) => {
+    console.log('main store change', state, prev)
+})
+actions.setGlobalState({
+    user: 'qiankun'
+})
+Vue.prototype.$actions = actions
 
 // 设置主应用启动后默认进入的微应用。可选
 setDefaultMountApp('/vue-app-1')

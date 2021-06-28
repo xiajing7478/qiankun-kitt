@@ -6,6 +6,12 @@
       <ul>
         <li><router-link to='/vue-app-1'>子应用1</router-link></li>
         <li><router-link to='/vue-app-3'>子应用2</router-link></li>
+        <li>
+          <hr>
+            <button @click="changeState('1')">修改state = 1</button>
+            <button @click="changeState('2')">修改state = 2</button>
+          <hr>
+        </li>
       </ul>
     </div>
     <div class="main-right">
@@ -20,6 +26,11 @@ export default {
   methods: {
     changeView(url) {
       history.pushState(null, url, url)
+    },
+    changeState(value) {
+      this.$actions.setGlobalState({
+        mt: value
+      })
     }
   }
 }

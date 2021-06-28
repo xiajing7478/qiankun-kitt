@@ -11,6 +11,18 @@ function render(props = {}) {
     }).$mount(container ? container.querySelector('#app') : '#app')
 }
 
+// const storeTest = (props) => {
+//     props.onGlobalStateChange && props.onGlobalStateChange((value, prev) => {
+//         console.log(`[onGlobalStateChange - ${props.name}]:`, value, prev)
+//     })
+//     props.setGlobalState && props.setGlobalState({
+//         ignore: props.name,
+//         user: {
+//             name: props.name,
+//         },
+//     })
+// }
+
 if (!window.__POWERED_BY_QIANKUN__) {
     render()
 }
@@ -22,6 +34,8 @@ export async function bootstrap(props = {}) {
 export async function mount(props) {
     console.log('[vue] props from main framework', props)
         // storeTest(props)
+    Vue.prototype.$onGlobalStateChange = props.onGlobalStateChange
+    Vue.prototype.$setGlobalState = props.setGlobalState
     render(props)
 }
 // 子应用切换/卸载时触发
