@@ -9,6 +9,12 @@
       </ul>
     </div>
     <div class="main-right">
+      <h1 class="title">测试样式冲突</h1>
+      <div>
+        <el-button type="primary" @click="changeState('1')">修改state = 1</el-button>
+        <el-button type="primary" @click="changeState('2')">修改state = 2</el-button>
+      </div>
+      <hr>
       <div id="micro-view"></div>
     </div>
   </div>
@@ -20,12 +26,20 @@ export default {
   methods: {
     changeView(url) {
       history.pushState(null, url, url)
+    },
+    changeState(value) {
+      this.$actions.setGlobalState({
+        mt: value
+      })
     }
   }
 }
 </script>
 
 <style>
+#main-app .title {
+  color: red;
+}
 .main-wrap {
   position: relative;
   height: 100%;

@@ -2,11 +2,14 @@ import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router'
 import routes from './router'
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/display.css';
 Vue.use(VueRouter)
+Vue.use(ElementUI)
 Vue.config.productionTip = false
 
 // 导入qiankun所需方法
-import { registerMicroApps, start, setDefaultMountApp, runAfterFirstMounted, initGlobalState } from 'qiankun'
+import { registerMicroApps, start, setDefaultMountApp, runAfterFirstMounted, initGlobalState, addGlobalUncaughtErrorHandler } from 'qiankun'
 
 // 注册子应用
 /**
@@ -31,7 +34,10 @@ registerMicroApps([{
         entry: 'http://localhost:8091/vue-app-1',
         container: '#micro-view',
         activeRule: '/vue-app-1',
-        props: { name: 'kitt' }
+        // 增加props参数
+        props: {
+            msg: 'this is from main to vue-app-1'
+        }
     },
     {
         name: 'vue-app-3',
@@ -68,26 +74,34 @@ registerMicroApps([{
     ]
 })
 
-
+/**
+ * 通讯
+ */
 // 定义全局状态，可以在主应用、子应用中使用 - 可选
+// const { onGlobalStateChange, setGlobalState } = initGlobalState({
+//     user: 'qiankun'
+// });
+// // 监听全局状态变化
+// onGlobalStateChange((value, prev) => console.log(
+//     '[onGlobalStateChange]:', value, prev
+// ));
+// // 设置全局状态
+// setGlobalState({
+//     user: {
+//         name: 'master'
+//     }
+// });
 
-// 定义全局状态，可以在主应用、子应用中使用
-const { onGlobalStateChange, setGlobalState } = initGlobalState({
+const actions = initGlobalState({
+    mt: 'init'
+})
+actions.onGlobalStateChange((state, prev) => {
+    console.log('main store change', state, prev)
+})
+actions.setGlobalState({
     user: 'qiankun'
 })
-
-// 监听全局状态变化
-onGlobalStateChange((value, prev) => console.log(
-    '[onGlobalStateChange]:', value, prev
-))
-
-// 设置全局状态
-setGlobalState({
-    ignore: 'master',
-    user: {
-        name: 'master'
-    }
-})
+Vue.prototype.$actions = actions
 
 // 设置主应用启动后默认进入的微应用。可选
 setDefaultMountApp('/vue-app-1')
@@ -97,6 +111,18 @@ runAfterFirstMounted((effect => {
     console.log('[MainApp] first app mounted')
     console.log('effect', effect)
 }))
+
+// addGlobalUncaughtErrorHandler
+// 全局的未捕获异常处理器，微应用发生报错的时候亦可以用这个api捕捉
+
+addGlobalUncaughtErrorHandler((event) => {
+    console.error(event)
+    const { message } = event
+    if (message && message.includes('died in status LOADING_SOURCE_CODE')) {
+        console.log('微应用加载失败，请检查应用是否可运行')
+    }
+})
+
 
 /**
  * start(opts?)
