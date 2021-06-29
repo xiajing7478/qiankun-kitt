@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import App from './App.vue'
-
+import './public-path.js'
 Vue.config.productionTip = false
 let instance = null
 
