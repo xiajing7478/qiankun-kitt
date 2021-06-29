@@ -1,12 +1,23 @@
 import Vue from 'vue'
 import App from './App.vue'
-
+import VueRouter from 'vue-router'
+import routes from './router'
+import './public-path.js';
+Vue.use(VueRouter)
 Vue.config.productionTip = false
 let instance = null
+let router = null
 
 function render(props = {}) {
     const { container } = props
+    router = new VueRouter({
+        // 如果是hash模式，下面2行可以不用
+        base: window.__POWERED_BY_QIANKUN__ ? '/vue-app-3' : '/',
+        mode: 'history',
+        routes
+    })
     instance = new Vue({
+        router,
         render: h => h(App)
     }).$mount(container ? container.querySelector('#app') : '#app')
 }
@@ -43,5 +54,5 @@ export async function unmount() {
     instance.$destroy()
     instance.$el.innerHTML = ''
     instance = null
-        // router = null
+    router = null
 }
