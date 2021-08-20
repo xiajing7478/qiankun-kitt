@@ -31,7 +31,7 @@ import { registerMicroApps, start, setDefaultMountApp, runAfterFirstMounted, ini
 registerMicroApps([{
         name: 'vue-app-1',
         // entry: '//localhost:8091',
-        entry: 'http://localhost:8091/vue-app-1',
+        entry: 'http://localhost:8091/vue-app-1', // 默认会加载html,解析里面js，动态执行（子应用必须支持跨域） fetch方式
         container: '#micro-view',
         activeRule: '/vue-app-1',
         // 增加props参数

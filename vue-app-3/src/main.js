@@ -26,6 +26,9 @@ function render(props = {}) {
 if (!window.__POWERED_BY_QIANKUN__) {
     render()
 }
+/**
+ * 协议介入
+ */
 // 子应用首次启动时触发
 export async function bootstrap(props = {}) {
     console.log('[vue] vue app bootstrap', props)

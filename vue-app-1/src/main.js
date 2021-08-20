@@ -26,6 +26,7 @@ function render(props = {}) {
         router,
         render: h => h(App)
     }).$mount(container ? container.querySelector('#app') : '#app')
+    // 这里是挂载到自己的html中，基座会拿到这个挂载后的html将其插入进去
 }
 
 // 独立运行时

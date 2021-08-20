@@ -17,3 +17,6 @@ module.exports = {
         }
     }
 }
+
+//umd好处
+// window.'vue-app-3'.bootstrap/mount/unmount
